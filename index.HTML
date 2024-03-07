@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Options</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+
+        #container {
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #333333;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #666666;
+            margin-bottom: 30px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: white;
+            padding: 12px 24px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            margin: 0 10px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        #call-me-btn {
+            background-color: #3498db;
+            margin: 0 10px;
+        }
+
+        #message-me-btn {
+            background-color: #e74c3c;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <h1>Contact Options</h1>
+        
+        <p>Choose an option to connect with me:</p>
+        
+        <button onclick="saveContact()">Save Contact</button><br><br>
+        <button id="call-me-btn" onclick="callMe()">Call Me</button>
+        <button id="message-me-btn" onclick="messageMe()">Message Me</button>
+    </div>
+
+    <script>
+        function saveContact() {
+            var confirmation = confirm("Would you like to save my contact?");
+            
+            if (confirmation) {
+                // You can provide the contact information here
+                var contactName = "Mahesh Pande";
+                var contactNumber = "+91 91460 24870";
+                var contactEmail = "maheshpande154@gmail.com";
+                
+                // Create a VCard string
+                var vCard = "BEGIN:VCARD\n" +
+                            "VERSION:3.0\n" +
+                            "FN:" + contactName + "\n" +
+                            "TEL:" + contactNumber + "\n" +
+                            "EMAIL:" + contactEmail + "\n" +
+                            "END:VCARD";
+
+                // Create a Blob and download the contact
+                var blob = new Blob([vCard], { type: 'text/vcard' });
+                var url = window.URL.createObjectURL(blob);
+                
+                var a = document.createElement('a');
+                a.href = url;
+                a.download = 'contact.vcf';
+                document.body.appendChild(a);
+                a.click();
+                
+                // Clean up
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+            }
+        }
+
+        function callMe() {
+            window.location.href = 'tel:YourPhoneNumber'; // Replace YourPhoneNumber with the actual phone number
+        }
+
+        function messageMe() {
+            window.location.href = 'sms:YourPhoneNumber'; // Replace YourPhoneNumber with the actual phone number
+        }
+    </script>
+
+</body>
+</html>
